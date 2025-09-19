@@ -62,11 +62,29 @@
     </header>
 
     <main>
-      <section class="hero">
-        <div class="container">
-          <p class="eyebrow">Empathetic AI</p>
+      <section class="hero dark">
+        <div class="fireflies" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
 
-          <h1>Empowering people with empathetic AI.</h1>
+        <div class="container">
+          <p class="eyebrow">Community based learning</p>
+
+          <h1>Learn AI after hours.</h1>
 
           <p class="lead">We help communities adapt, solve real-world problems, and free time for what makes us truly human. AI should empower—not replace—people.</p>
 
@@ -135,6 +153,88 @@
       (function() {
         var yearEl = document.getElementById('year');
         if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+        // Fireflies: gentle drift with periodic fade-out respawn in hero.dark
+        var container = document.querySelector('.hero.dark .fireflies');
+        if (!container) return;
+
+        var FIREFLY_COUNT = 64;
+        var MIN_DUR = 14000;  // ms (gentle)
+        var MAX_DUR = 24000;  // ms
+        var R_MIN = 6;        // vw small drift radius
+        var R_MAX = 12;       // vw
+        var RESPAWN_PROB = 0.10; // chance per move to fade-out and respawn elsewhere
+
+        function rand(min, max) { return Math.random() * (max - min) + min; }
+        function vw(x) { return (x * window.innerWidth) / 100; }
+        function vh(y) { return (y * window.innerHeight) / 100; }
+
+        // Ensure we have enough spans
+        var existing = container.querySelectorAll('span');
+        for (var i = existing.length; i < FIREFLY_COUNT; i++) {
+          container.appendChild(document.createElement('span'));
+        }
+
+        function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+
+        function setTransform(f, x, y, s, instant) {
+          var tx = 'translate(' + vw(x) + 'px,' + vh(y) + 'px) scale(' + s + ')';
+          if (instant) {
+            var prev = f.style.transition;
+            f.style.transition = 'none';
+            f.style.transform = tx;
+            void f.offsetWidth;
+            f.style.transition = prev;
+          } else {
+            f.style.transform = tx;
+          }
+        }
+
+        function initFirefly(f) {
+          var baseX = rand(5, 95);
+          var baseY = rand(5, 70);
+          var scale = rand(0.6, 1.0);
+          f.dataset.baseX = baseX;
+          f.dataset.baseY = baseY;
+          f.dataset.scale = scale;
+          f.style.opacity = rand(0.55, 0.95);
+          f.style.setProperty('--blink', rand(3.0, 5.5) + 's');
+          setTransform(f, baseX, baseY, scale, true);
+          setTimeout(function(){ drift(f); }, rand(300, 1500));
+        }
+
+        function drift(f) {
+          var dur = rand(MIN_DUR, MAX_DUR);
+          f.style.setProperty('--move-dur', dur + 'ms');
+          
+          // Occasionally despawn and respawn elsewhere
+          if (Math.random() < RESPAWN_PROB) {
+            f.style.opacity = 0;
+            setTimeout(function(){
+              var baseX = rand(5, 95);
+              var baseY = rand(5, 70);
+              var scale = f.dataset.scale ? parseFloat(f.dataset.scale) : rand(0.6, 1.0);
+              f.dataset.baseX = baseX;
+              f.dataset.baseY = baseY;
+              setTransform(f, baseX, baseY, scale, true);
+              setTimeout(function(){ f.style.opacity = rand(0.55, 0.95); }, 60);
+              setTimeout(function(){ drift(f); }, rand(600, 1400));
+            }, 420);
+            return;
+          }
+
+          var baseXf = parseFloat(f.dataset.baseX);
+          var baseYf = parseFloat(f.dataset.baseY);
+          var scale = parseFloat(f.dataset.scale) || 0.8;
+          var r = rand(R_MIN, R_MAX);
+          var targetX = clamp(baseXf + rand(-r, r), 2, 98);
+          var targetY = clamp(baseYf + rand(-r, r), 2, 88);
+          setTransform(f, targetX, targetY, scale, false);
+
+          setTimeout(function(){ drift(f); }, dur + rand(200, 1200));
+        }
+
+        Array.prototype.forEach.call(container.querySelectorAll('span'), initFirefly);
       })();
     </script>
   </body>

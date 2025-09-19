@@ -172,3 +172,50 @@ h2 { margin: 0 0 16px; font-size: 22px; }
   background: #fafafa;
   margin: 0 0 8px;
 }
+
+/* Dark hero with fireflies */
+.hero.dark {
+  position: relative;
+  isolation: isolate;
+  background: radial-gradient(1200px 600px at 10% -10%, rgba(124,92,255,0.08), transparent 60%),
+              radial-gradient(1200px 600px at 90% 10%, rgba(0,229,255,0.07), transparent 60%),
+              #0b0c10;
+  color: #e6edf3;
+  padding: 96px 0 64px;
+}
+
+.hero.dark .lead { color: #c8d1db; }
+.hero.dark .brand, .hero.dark .brand-text { color: #e6edf3; }
+
+.hero.dark .container { position: relative; z-index: 2; }
+
+.fireflies {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.fireflies span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,200,0.95), rgba(255,255,200,0.1) 60%, transparent 70%);
+  box-shadow: 0 0 12px 2px rgba(255,255,200,0.8), 0 0 32px 8px rgba(124,92,255,0.25);
+  pointer-events: none;
+  opacity: 0.75;
+  animation: blink var(--blink, 4.2s) ease-in-out infinite;
+  transition: transform var(--move-dur, 16s) cubic-bezier(.25,.46,.45,.94), opacity 600ms ease-in-out;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.2; filter: blur(0.5px); }
+  50% { opacity: 1; filter: blur(0px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fireflies span { animation: none; transition: none; opacity: 0; }
+}
