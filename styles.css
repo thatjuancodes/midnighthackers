@@ -88,6 +88,42 @@ body {
 .button.primary { background: var(--brand); color: #ffffff; border-color: var(--brand); }
 .button.primary:hover { background: var(--brand-600); border-color: var(--brand-600); }
 
+/* Gleam sweep for primary CTA */
+.gleam { position: relative; overflow: hidden; }
+.gleam::after {
+  content: "";
+  position: absolute;
+  top: -150%;
+  left: -40%;
+  width: 70%;
+  height: 420%;
+  transform: rotate(20deg);
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.18) 38%,
+    rgba(255,255,255,0.42) 50%,
+    rgba(255,255,255,0.18) 62%,
+    rgba(255,255,255,0) 100%
+  );
+  animation: gleam-sweep 7.2s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes gleam-sweep {
+  0%   { transform: translateX(-160%) rotate(20deg); opacity: 0; }
+  8%   { transform: translateX(-130%) rotate(20deg); opacity: 0; }
+  18%  { transform: translateX(-80%) rotate(20deg);  opacity: 0.25; }
+  32%  { transform: translateX(60%) rotate(20deg);   opacity: 0.50; }
+  44%  { transform: translateX(170%) rotate(20deg);  opacity: 0.22; }
+  50%  { transform: translateX(170%) rotate(20deg);  opacity: 0; }
+  100% { transform: translateX(170%) rotate(20deg);  opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gleam::after { animation: none; opacity: 0; }
+}
+
 .section { padding: 56px 0; border-top: 1px solid var(--border); background: #ffffff; }
 
 h2 { margin: 0 0 16px; font-size: 22px; }
