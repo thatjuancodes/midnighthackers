@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Midnight Hackers</title>
+    <meta name="description" content="Midnight Hackers — a community of builders who ship after dark.">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="/">
+          <span class="logo" aria-hidden="true">★</span>
+          <span class="brand-text">Midnight Hackers</span>
+        </a>
+        <nav class="nav">
+          <a href="#about">About</a>
+          <a href="#events">Events</a>
+          <a href="#join">Join</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <h1>Build after dark.</h1>
+          <p class="lead">We are a community of developers, designers, and makers who love creating at midnight.
+          </p>
+          <div class="cta">
+            <a class="button primary" href="#join">Join the crew</a>
+            <a class="button" href="#about">Learn more</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="container">
+          <h2>About</h2>
+          <p>
+            Midnight Hackers hosts late-night hack sessions, weekend sprints, and casual meetups for builders who thrive after hours.
+          </p>
+        </div>
+      </section>
+
+      <section id="events" class="section">
+        <div class="container">
+          <h2>Events</h2>
+          <ul class="card-grid">
+            <li class="card">
+              <h3>Midnight Sprint</h3>
+              <p>Bi-weekly online sprint. Bring a project, grab a beverage, ship something cool.</p>
+            </li>
+
+            <li class="card">
+              <h3>After Hours AMA</h3>
+              <p>Fireside chats with builders and founders about their late-night breakthroughs.</p>
+            </li>
+
+            <li class="card">
+              <h3>Weekend Build</h3>
+              <p>In-person weekend hackathon with snacks, music, and demo night.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="join" class="section">
+        <div class="container">
+          <h2>Join</h2>
+          <form class="join-form" action="#" method="post" aria-label="Join Midnight Hackers">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@night.owls" required>
+
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name" required>
+
+            <button type="submit" class="button primary">Request Invite</button>
+          </form>
+          <p class="form-note">We will never share your email. No spam, ever.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© <span id="year"></span> Midnight Hackers</p>
+        <div class="social">
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X">X</a>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (function() {
+        var yearEl = document.getElementById('year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+      })();
+    </script>
+  </body>
+  </html>
+
+
